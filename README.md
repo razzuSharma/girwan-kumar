@@ -1,4 +1,4 @@
-# Dr. Sarah Chen - Medical Portfolio Website
+# DR. Girwan Kumar Budhathoki - Medical Portfolio Website
 
 A professional medical doctor portfolio website built with Next.js, TypeScript, and Tailwind CSS. Designed with a clean, clinical aesthetic featuring medical-themed UI elements like pill-shaped buttons, capsule badges, and a light/dark theme toggle.
 
