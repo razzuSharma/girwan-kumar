@@ -1,0 +1,386 @@
+@import "tailwindcss";
+
+/* 
+  ACCENT THEME VARIABLES
+  =====================
+  @razzusharma/accent-theme auto-injects these CSS variables:
+  --primary, --primary-foreground, --accent, --ring
+  
+  No manual CSS changes needed! The package handles everything.
+  These fallbacks are only used during initial render.
+*/
+
+/* ===== LIGHT THEME ===== */
+:root {
+  /* Fallback values - will be overridden by AccentThemeProvider */
+  --primary: #0d9488;
+  --primary-foreground: #f8fafc;
+  --accent: #14b8a6;
+  --ring: #14b8a6;
+  
+  /* Static colors */
+  --secondary: #64748b;
+  --secondary-light: #94a3b8;
+  --background: #ffffff;
+  --background-soft: #f8fafc;
+  --background-muted: #f1f5f9;
+  --foreground: #0f172a;
+  --foreground-muted: #334155;
+  --foreground-subtle: #64748b;
+  --border: #e2e8f0;
+  --border-light: #f1f5f9;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+  
+  /* Radius */
+  --radius-pill: 9999px;
+  --radius-soft: 1rem;
+  --radius-card: 1.5rem;
+}
+
+/* ===== DARK THEME ===== */
+[data-theme="dark"] {
+  --primary: #14b8a6;
+  --primary-foreground: #f8fafc;
+  --accent: #14b8a6;
+  --ring: #14b8a6;
+  
+  --secondary: #94a3b8;
+  --secondary-light: #cbd5e1;
+  --background: #0f172a;
+  --background-soft: #1e293b;
+  --background-muted: #334155;
+  --foreground: #f8fafc;
+  --foreground-muted: #e2e8f0;
+  --foreground-subtle: #94a3b8;
+  --border: #334155;
+  --border-light: #1e293b;
+  --success: #34d399;
+  --warning: #fbbf24;
+  --error: #f87171;
+  --info: #60a5fa;
+}
+
+/* ===== TAILWIND THEME MAPPING ===== */
+@theme inline {
+  --color-background: var(--background);
+  --color-background-soft: var(--background-soft);
+  --color-background-muted: var(--background-muted);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--accent);
+  --color-primary-dark: color-mix(in srgb, var(--primary) 80%, black);
+  --color-primary-soft: color-mix(in srgb, var(--primary) 15%, transparent);
+  --color-secondary: var(--secondary);
+  --color-secondary-light: var(--secondary-light);
+  --color-border: var(--border);
+  --color-border-light: var(--border-light);
+  --color-accent: var(--accent);
+  --color-ring: var(--ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --radius-pill: 9999px;
+  --radius-soft: 1rem;
+  --radius-card: 1.5rem;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ===== FOCUS STYLES ===== */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ===== MEDICAL PILL BUTTONS ===== */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255,255,255,0.15) 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.btn-pill:hover::before {
+  opacity: 1;
+}
+
+.btn-pill-primary {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  box-shadow: 0 4px 14px -2px color-mix(in srgb, var(--primary) 35%, transparent);
+}
+
+.btn-pill-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px -4px color-mix(in srgb, var(--primary) 45%, transparent);
+}
+
+.btn-pill-secondary {
+  background: var(--background-soft);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+
+.btn-pill-secondary:hover {
+  background: var(--background-muted);
+  border-color: var(--accent);
+}
+
+.btn-pill-outline {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+.btn-pill-outline:hover {
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+/* ===== MEDICAL CAPSULE BADGES ===== */
+.badge-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.375rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  color: var(--primary);
+  transition: all 0.2s ease;
+}
+
+/* ===== MEDICAL CARDS ===== */
+.card-medical {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-medical:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--primary) 15%, transparent);
+  transform: translateY(-2px);
+}
+
+[data-theme="dark"] .card-medical:hover {
+  box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--primary) 20%, transparent);
+}
+
+/* ===== MEDICAL INPUTS ===== */
+.input-medical {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.875rem;
+  color: var(--foreground);
+  background: var(--background);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-pill);
+  transition: all 0.25s ease;
+}
+
+.input-medical:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+.input-medical::placeholder {
+  color: var(--foreground-subtle);
+}
+
+/* ===== MEDICAL TOGGLE/SWITCH ===== */
+.toggle-medical {
+  position: relative;
+  display: inline-flex;
+  height: 2rem;
+  width: 3.5rem;
+  align-items: center;
+  border-radius: var(--radius-pill);
+  background: var(--background-muted);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+}
+
+.toggle-medical[data-checked="true"] {
+  background: var(--primary);
+}
+
+.toggle-medical-thumb {
+  position: absolute;
+  left: 0.25rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: var(--radius-pill);
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.toggle-medical[data-checked="true"] .toggle-medical-thumb {
+  transform: translateX(1.5rem);
+}
+
+/* ===== MEDICAL DIVIDERS ===== */
+.divider-medical {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--border) 20%,
+    var(--border) 80%,
+    transparent 100%
+  );
+}
+
+/* ===== MEDICAL DOT/INDICATOR ===== */
+.dot-pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+
+.dot-pulse::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: var(--success);
+  opacity: 0.4;
+  animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+/* ===== EKG/HEARTBEAT ANIMATION ===== */
+.ekg-line {
+  stroke-dasharray: 100;
+  animation: ekg-dash 2s linear infinite;
+}
+
+@keyframes ekg-dash {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+/* ===== PILL SHAPED TAGS ===== */
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.875rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--primary) 10%, transparent);
+  color: var(--primary);
+}
+
+/* ===== MEDICAL SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background-muted);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  border-radius: var(--radius-pill);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary);
+}
+
+/* ===== MEDICAL SELECTION ===== */
+::selection {
+  background: color-mix(in srgb, var(--primary) 20%, transparent);
+  color: var(--primary);
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .dot-pulse::after {
+    animation: none;
+  }
+  
+  .ekg-line {
+    animation: none;
+  }
+}
+
+/* ===== EASE SPRING FOR ANIMATIONS ===== */
+.ease-spring {
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
