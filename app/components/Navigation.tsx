@@ -31,7 +31,7 @@ export default function Navigation() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-          ? "bg-white/80 backdrop-blur-md border-b border-border shadow-sm"
+          ? "bg-background/80 backdrop-blur-md border-b border-border shadow-sm"
           : "bg-transparent"
         }`}
     >
@@ -118,7 +118,7 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-border animate-in slide-in-from-top duration-300">
+          <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border animate-in slide-in-from-top duration-300">
             <ul className="py-4 space-y-1">
               {navLinks.map((link) => (
                 <li key={link.href}>

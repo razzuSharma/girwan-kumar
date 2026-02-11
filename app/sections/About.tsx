@@ -82,7 +82,7 @@ export default function About() {
 
             <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300 mt-12 grid sm:grid-cols-3 gap-6">
               {focusAreas.map((area, index) => (
-                <div key={index} className="p-5 rounded-2xl bg-white border border-border shadow-sm hover:border-primary/20 transition-all">
+                <div key={index} className="p-5 rounded-2xl bg-background-soft border border-border shadow-sm hover:border-primary/20 transition-all">
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
                     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       {area.icon === "heart" && <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />}
@@ -107,7 +107,7 @@ export default function About() {
               {timeline.map((item, index) => (
                 <div key={index} className="relative fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out">
                   {/* Timeline Dot */}
-                  <div className="absolute -left-[41px] top-1.5 w-5 h-5 rounded-full bg-white border-4 border-primary shadow-sm" />
+                  <div className="absolute -left-[41px] top-1.5 w-5 h-5 rounded-full bg-background-soft border-4 border-primary shadow-sm" />
 
                   <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
                     <span className="text-primary font-bold tracking-tight">{item.year}</span>

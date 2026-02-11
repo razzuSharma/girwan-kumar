@@ -80,8 +80,10 @@ export default function Contact() {
               )}
 
               <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Full Name</label>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                    Full Name
+                  </label>
                   <input
                     type="text"
                     name="name"
@@ -92,8 +94,10 @@ export default function Contact() {
                     placeholder="Enter your name"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Email Address</label>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                    Email Address
+                  </label>
                   <input
                     type="email"
                     name="email"
@@ -107,8 +111,10 @@ export default function Contact() {
               </div>
 
               <div className="grid sm:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Phone Number</label>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                    Phone Number
+                  </label>
                   <input
                     type="tel"
                     name="phone"
@@ -119,8 +125,10 @@ export default function Contact() {
                     placeholder="+977"
                   />
                 </div>
-                <div className="space-y-2">
-                  <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Preferred Date</label>
+                <div>
+                  <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                    Preferred Date
+                  </label>
                   <input
                     type="date"
                     name="date"
@@ -131,8 +139,10 @@ export default function Contact() {
                 </div>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Reason for Visit</label>
+              <div>
+                <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                  Reason for Visit
+                </label>
                 <select
                   name="reason"
                   required
@@ -148,8 +158,10 @@ export default function Contact() {
                 </select>
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs font-bold text-foreground-muted tracking-widest uppercase ml-1">Additional Details</label>
+              <div>
+                <label className="mb-1.5 block text-xs font-bold text-foreground-muted tracking-widest uppercase">
+                  Additional Details
+                </label>
                 <textarea
                   name="message"
                   value={formState.message}
@@ -190,7 +202,7 @@ export default function Contact() {
 
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-background-soft/20 flex items-center justify-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
                     </svg>
@@ -201,7 +213,7 @@ export default function Contact() {
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-2xl bg-background-soft/20 flex items-center justify-center">
                     <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" />
                     </svg>
@@ -214,7 +226,7 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-400 p-8 rounded-[2rem] bg-white border border-border shadow-sm">
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-400 p-8 rounded-[2rem] bg-background-soft border border-border shadow-sm">
               <h4 className="font-bold text-foreground mb-4">Patient Portal</h4>
               <p className="text-sm text-foreground-muted leading-relaxed font-light mb-6">
                 We value your time. For the most efficient experience, please have your previous medical history ready if this is your first visit.

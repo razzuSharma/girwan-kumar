@@ -55,7 +55,7 @@ export default function Clinic() {
         <div className="grid lg:grid-cols-2 gap-12 items-stretch">
           {/* Location Info */}
           <div className="space-y-8 h-full">
-            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 p-10 rounded-[3rem] bg-white border border-border shadow-sm h-full flex flex-col">
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 p-10 rounded-[3rem] bg-background-soft border border-border shadow-sm h-full flex flex-col">
               <div className="flex items-center gap-5 mb-8">
                 <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
                   <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -111,7 +111,7 @@ export default function Clinic() {
 
           {/* Map & Hours */}
           <div className="space-y-8 flex flex-col">
-            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 p-10 rounded-[3rem] bg-white border border-border shadow-sm flex-1">
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 p-10 rounded-[3rem] bg-background-soft border border-border shadow-sm flex-1">
               <h3 className="text-xl font-bold text-foreground mb-8 flex items-center gap-3">
                 <svg className="w-6 h-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" />
