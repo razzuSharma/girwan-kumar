@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { requireUser } from "@/lib/supabase/auth";
-import PostForm from "../../PostForm";
+import PostEditor from "../../PostEditor";
 
 export default async function EditPostPage({
   params,
@@ -17,7 +17,7 @@ export default async function EditPostPage({
 
   const { data: post } = await supabase
     .from("posts")
-    .select("id, title, content")
+    .select("id, title, content, slug, excerpt, meta_title, meta_description, featured_image, is_published")
     .eq("id", postId)
     .eq("user_id", user.id)
     .maybeSingle();
@@ -27,18 +27,31 @@ export default async function EditPostPage({
   }
 
   return (
-    <div className="space-y-6">
-      <div className="rounded-3xl border border-border bg-background p-6 shadow-sm">
-        <h1 className="text-2xl font-semibold text-foreground">Edit Post</h1>
-        <p className="mt-2 text-sm text-foreground-muted">Update your post content.</p>
+    <div className="space-y-8">
+      <div className="max-w-3xl space-y-4">
+        <span className="badge-capsule">ADMIN</span>
+        <div>
+          <h1 className="text-3xl md:text-4xl font-bold text-foreground">Edit Article</h1>
+          <p className="mt-2 text-foreground-muted">
+            Refine content, SEO fields, and publish status for this article.
+          </p>
+        </div>
+        <div className="border-t border-border" />
       </div>
-      <div className="rounded-3xl border border-border bg-background p-6 shadow-sm">
-        <PostForm
+
+      <div className="max-w-3xl">
+        <PostEditor
           userId={user.id}
           mode="edit"
           postId={post.id}
           initialTitle={post.title ?? ""}
           initialContent={post.content ?? ""}
+          initialSlug={post.slug ?? null}
+          initialExcerpt={post.excerpt ?? null}
+          initialMetaTitle={post.meta_title ?? null}
+          initialMetaDescription={post.meta_description ?? null}
+          initialFeaturedImage={post.featured_image ?? null}
+          initialIsPublished={post.is_published ?? true}
         />
       </div>
     </div>
