@@ -26,13 +26,13 @@ export async function POST(request: Request) {
   }
 
   const supabase = createServiceSupabase();
-  const { error } = await supabase.from("appointments").insert({
-    name,
+  const { error } = await supabase.from("appointment_requests").insert({
+    full_name: name,
     email,
     phone,
     preferred_date: payload.preferredDate || null,
     reason: payload.reason || null,
-    message: payload.message || null,
+    details: payload.message || null,
   });
 
   if (error) {

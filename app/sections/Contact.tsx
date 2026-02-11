@@ -14,6 +14,7 @@ export default function Contact() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,13 +41,39 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setIsSuccess(true);
-    setFormState({ name: "", email: "", phone: "", date: "", reason: "", message: "" });
-    setTimeout(() => setIsSuccess(false), 5000);
+    setIsSuccess(false);
+    setError("");
+  
+    try {
+      const response = await fetch("/api/appointments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          phone: formState.phone,
+          preferredDate: formState.date || "",
+          reason: formState.reason,
+          message: formState.message,
+        }),
+      });
+
+      if (!response.ok) {
+        const data = (await response.json().catch(() => null)) as { error?: string } | null;
+        throw new Error(data?.error || "Unable to submit appointment.");
+      }
+  
+      setIsSuccess(true);
+      setFormState({ name: "", email: "", phone: "", date: "", reason: "", message: "" });
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err: any) {
+      console.error("Appointment insert error:", err);
+      setError(err?.message ?? "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
+  
 
   return (
     <section
@@ -76,6 +103,15 @@ export default function Contact() {
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
                   Request Sent Successfully! We&apos;ll contact you soon.
+                </div>
+              )}
+              {error && (
+                <div className="p-6 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-600 font-semibold flex items-center gap-3 animate-in slide-in-from-top-4">
+                  <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                  {error}
                 </div>
               )}
 
@@ -241,4 +277,7 @@ export default function Contact() {
       </div>
     </section>
   );
+}
+function setError(arg0: any) {
+  throw new Error("Function not implemented.");
 }
