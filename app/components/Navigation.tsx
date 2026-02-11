@@ -7,7 +7,7 @@ const navLinks = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
   { href: "#services", label: "Services" },
-  { href: "#qualifications", label: "Qualifications" },
+  { href: "#qualifications", label: "Credentials" },
   { href: "#clinic", label: "Clinic" },
   { href: "#contact", label: "Contact" },
 ];
@@ -30,71 +30,64 @@ export default function Navigation() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/95 backdrop-blur-md shadow-sm"
-          : "bg-background"
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-border shadow-sm"
+          : "bg-transparent"
+        }`}
     >
-      {/* Medical accent line at top */}
-      <div className="h-1 bg-linear-to-r from-primary via-primary-light to-primary" aria-hidden="true" />
-      
       <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-2.5 group">
-            {/* Medical cross icon */}
-            <div className="relative w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+          <a href="#home" className="flex items-center gap-3 group">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
               <svg
-                className="w-5 h-5 text-primary"
+                className="w-6 h-6"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="2"
+                strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                aria-hidden="true"
               >
                 <path d="M12 5v14M5 12h14" />
               </svg>
-              {/* Pulse dot */}
-              <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-green-500 border-2 border-background" />
             </div>
             <div className="flex flex-col">
-              <span className="text-sm font-semibold text-foreground leading-tight">Dr. Girwan Kumar Budhathoki</span>
-              <span className="text-[10px] text-foreground-subtle tracking-wide">INTERNAL MEDICINE</span>
+              <span className="text-lg font-bold text-foreground tracking-tight leading-none">
+                Dr. Girwan Kumar
+              </span>
+              <span className="text-[10px] text-primary font-semibold uppercase tracking-widest mt-1">
+                Internal Medicine
+              </span>
             </div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-4">
-            <ul className="flex items-center gap-1">
+          <div className="hidden md:flex items-center gap-8">
+            <ul className="flex items-center gap-6">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="px-3 py-2 text-sm font-medium text-foreground-subtle hover:text-primary rounded-full transition-colors"
+                    className="text-sm font-medium text-foreground-muted hover:text-primary transition-colors relative group/link"
                     onClick={handleLinkClick}
                   >
                     {link.label}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover/link:w-full" />
                   </a>
                 </li>
               ))}
             </ul>
-            
-            {/* Divider */}
-            <div className="w-px h-6 bg-border" aria-hidden="true" />
-            
-            {/* Theme Toggle */}
-            <ThemeToggle />
-            
-            {/* CTA Button - Pill Style */}
-            <a
-              href="#contact"
-              className="btn-pill btn-pill-primary text-sm"
-            >
-              Book Appointment
-            </a>
+
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <a
+                href="#contact"
+                className="btn-pill btn-pill-primary text-sm px-6 py-2.5"
+              >
+                Book Appointment
+              </a>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -102,10 +95,8 @@ export default function Navigation() {
             <ThemeToggle />
             <button
               type="button"
-              className="p-2 text-foreground-subtle hover:text-primary rounded-full transition-colors"
+              className="p-2 text-foreground hover:bg-background-soft rounded-xl transition-colors"
               onClick={() => setIsOpen(!isOpen)}
-              aria-expanded={isOpen}
-              aria-controls="mobile-menu"
               aria-label={isOpen ? "Close menu" : "Open menu"}
             >
               <svg
@@ -114,21 +105,11 @@ export default function Navigation() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
               >
                 {isOpen ? (
-                  <>
-                    <path d="M18 6L6 18" />
-                    <path d="M6 6l12 12" />
-                  </>
+                  <path d="M18 6L6 18M6 6l12 12" />
                 ) : (
-                  <>
-                    <path d="M3 12h18" />
-                    <path d="M3 6h18" />
-                    <path d="M3 18h18" />
-                  </>
+                  <path d="M3 12h18M3 6h18M3 18h18" />
                 )}
               </svg>
             </button>
@@ -137,26 +118,23 @@ export default function Navigation() {
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div
-            id="mobile-menu"
-            className="md:hidden border-t border-border pb-4"
-          >
-            <ul className="py-3 space-y-1">
+          <div className="md:hidden bg-white/95 backdrop-blur-xl border-t border-border animate-in slide-in-from-top duration-300">
+            <ul className="py-4 space-y-1">
               {navLinks.map((link) => (
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="block px-4 py-3 text-sm font-medium text-foreground-subtle hover:text-primary hover:bg-background-soft rounded-full transition-colors"
+                    className="block px-6 py-4 text-sm font-medium text-foreground-muted hover:text-primary hover:bg-primary/5 transition-colors"
                     onClick={handleLinkClick}
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
-              <li className="pt-3 px-4">
+              <li className="p-6">
                 <a
                   href="#contact"
-                  className="btn-pill btn-pill-primary w-full"
+                  className="btn-pill btn-pill-primary w-full py-4 text-center"
                   onClick={handleLinkClick}
                 >
                   Book Appointment

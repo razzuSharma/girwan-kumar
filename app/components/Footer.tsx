@@ -1,144 +1,90 @@
 "use client";
 
-import ThemeToggle from "./ThemeToggle";
-import { AccentColorPicker } from "@razzusharma/accent-theme";
-
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-foreground text-background py-12">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          {/* Doctor Info */}
-          <div className="md:col-span-2">
-            <div className="flex items-center gap-2.5 mb-4">
-              {/* Medical cross icon */}
-              <div className="relative w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <svg
-                  className="w-5 h-5 text-primary-light"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
+    <footer className="bg-white border-t border-border pt-20 pb-10 relative overflow-hidden">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="grid md:grid-cols-4 gap-12 mb-16">
+          {/* Brand Info */}
+          <div className="md:col-span-2 space-y-6">
+            <a href="#home" className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M12 5v14M5 12h14" />
                 </svg>
               </div>
-              <div>
-                <span className="font-semibold text-background">Dr. Girwan Kumar Budhathoki</span>
-                <p className="text-[10px] text-background/60 tracking-wide">INTERNAL MEDICINE</p>
-              </div>
-            </div>
-            <p className="text-sm text-background/70 leading-relaxed max-w-sm mb-6">
-              Board-certified internal medicine physician providing comprehensive 
-              adult healthcare with a focus on preventive medicine and chronic 
-              disease management.
+              <span className="text-xl font-bold text-foreground tracking-tight">
+                Dr. Girwan Kumar
+              </span>
+            </a>
+            <p className="text-foreground-muted text-sm leading-relaxed max-w-sm font-light">
+              Providing dedicated medical services at Nobel Medical College.
+              Committed to the health and well-being of the Eastern Nepal community
+              through clinical excellence and compassionate care.
             </p>
-            
-            {/* Theme Settings in Footer - Using v2.0.1 pre-built components */}
-            <div className="flex flex-wrap items-center gap-4 p-3 rounded-2xl bg-background/5 border border-background/10">
-              {/* Theme Toggle */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-background/50">Mode</span>
-                <ThemeToggle />
+            <div className="flex items-center gap-4">
+              {/* Social placeholders could go here */}
+              <div className="w-8 h-8 rounded-full bg-background border border-border flex items-center justify-center text-foreground-subtle hover:text-primary hover:border-primary transition-all cursor-pointer">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>
               </div>
-              
-              {/* Divider */}
-              <div className="w-px h-6 bg-background/20" />
-              
-              {/* Accent Color Picker - Using the new pre-built dropdown */}
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-background/50">Accent</span>
-                <AccentColorPicker 
-                  variant="dropdown" 
-                  size="sm"
-                  label=""
-                  showColorName={false}
-                />
+              <div className="w-8 h-8 rounded-full bg-background border border-border flex items-center justify-center text-foreground-subtle hover:text-primary hover:border-primary transition-all cursor-pointer">
+                <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
               </div>
             </div>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-medium mb-4 text-background/90">Quick Links</h4>
-            <ul className="space-y-2 text-sm text-background/60">
-              <li>
-                <a href="#about" className="hover:text-primary-light transition-colors inline-flex items-center gap-2 group">
-                  <span className="w-1 h-1 rounded-full bg-background/40 group-hover:bg-primary-light transition-colors" />
-                  About Dr. Budhathoki
-                </a>
-              </li>
-              <li>
-                <a href="#services" className="hover:text-primary-light transition-colors inline-flex items-center gap-2 group">
-                  <span className="w-1 h-1 rounded-full bg-background/40 group-hover:bg-primary-light transition-colors" />
-                  Services
-                </a>
-              </li>
-              <li>
-                <a href="#qualifications" className="hover:text-primary-light transition-colors inline-flex items-center gap-2 group">
-                  <span className="w-1 h-1 rounded-full bg-background/40 group-hover:bg-primary-light transition-colors" />
-                  Qualifications
-                </a>
-              </li>
-              <li>
-                <a href="#clinic" className="hover:text-primary-light transition-colors inline-flex items-center gap-2 group">
-                  <span className="w-1 h-1 rounded-full bg-background/40 group-hover:bg-primary-light transition-colors" />
-                  Clinic Information
-                </a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-primary-light transition-colors inline-flex items-center gap-2 group">
-                  <span className="w-1 h-1 rounded-full bg-background/40 group-hover:bg-primary-light transition-colors" />
-                  Book Appointment
-                </a>
-              </li>
+            <h4 className="font-bold text-foreground mb-6 uppercase tracking-widest text-xs">Directory</h4>
+            <ul className="space-y-4 text-sm text-foreground-muted">
+              <li><a href="#home" className="hover:text-primary transition-colors">Home</a></li>
+              <li><a href="#about" className="hover:text-primary transition-colors">About Me</a></li>
+              <li><a href="#services" className="hover:text-primary transition-colors">Medical Services</a></li>
+              <li><a href="#clinic" className="hover:text-primary transition-colors">Clinic Info</a></li>
             </ul>
           </div>
 
-          {/* Contact */}
+          {/* Contact Node */}
           <div>
-            <h4 className="font-medium mb-4 text-background/90">Contact</h4>
-            <address className="not-italic text-sm text-background/60 space-y-2">
-              <p>Nobel Medical College & Teaching Hospital</p>
-              <p>Kanchanbari, Biratnagar</p>
-              <p>Morang District, Nepal</p>
-              <p className="pt-2">
-                <a href="tel:+9779842598431" className="hover:text-primary-light transition-colors">
-                  +977 9842598431
-                </a>
-              </p>
-              <p>
-                <a href="mailto:Girwan.kumar@gmail.com" className="hover:text-primary-light transition-colors">
-                  Girwan.kumar@gmail.com
-                </a>
-              </p>
-            </address>
+            <h4 className="font-bold text-foreground mb-6 uppercase tracking-widest text-xs">Contact Information</h4>
+            <ul className="space-y-4 text-sm text-foreground-muted font-light">
+              <li className="flex items-center gap-3">
+                <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                +977 9842598431
+              </li>
+              <li className="flex items-center gap-3">
+                <svg className="w-4 h-4 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                Girwan.kumar@gmail.com
+              </li>
+              <li className="flex items-start gap-3">
+                <svg className="w-4 h-4 text-primary mt-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                <span>Nobel Medical College,<br />Biratnagar, Nepal</span>
+              </li>
+            </ul>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-background/10 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-background/50">
-              {currentYear} Dr. Girwan Kumar Budhathoki. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6 text-sm text-background/50">
-              <a href="#" className="hover:text-primary-light transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-primary-light transition-colors">Terms of Use</a>
-              <a href="#" className="hover:text-primary-light transition-colors">Accessibility</a>
-            </div>
-          </div>
-          <p className="text-xs text-background/40 mt-4 text-center md:text-left">
-            This website is for informational purposes only and does not constitute medical advice. 
-            Please consult with a healthcare provider for personal medical concerns.
+        {/* Legal Banner */}
+        <div className="border-t border-border pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-xs text-foreground-subtle font-medium uppercase tracking-[0.2em]">
+            © {currentYear} Dr. Girwan Kumar Budhathoki. Clinical Portfolio.
           </p>
+          <div className="flex items-center gap-8 text-xs text-foreground-subtle font-medium uppercase tracking-widest">
+            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+          </div>
         </div>
+
+        {/* Medical Disclaimer */}
+        <p className="mt-10 text-[10px] text-foreground-subtle/50 text-center uppercase tracking-tighter leading-tight max-w-2xl mx-auto">
+          Medical Disclaimer: The information provided on this website is for general educational purposes only and does not constitute medical advice, diagnosis, or treatment. Always seek the advice of a physician or other qualified health provider with any questions you may have regarding a medical condition.
+        </p>
       </div>
+
+      {/* Background Graphic */}
+      <div className="absolute top-0 right-0 w-1/4 h-full bg-primary/5 blur-[100px] -z-10" />
     </footer>
   );
 }

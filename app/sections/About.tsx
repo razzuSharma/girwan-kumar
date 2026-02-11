@@ -1,27 +1,37 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 const timeline = [
   {
     year: "2024",
-    title: "MBBS Degree",
-    description: "Completed Bachelor of Medicine and Bachelor of Surgery with dedication to clinical excellence.",
+    title: "Medical Officer",
+    description: "Currently serving as a Medical Officer at Nobel Medical College & Teaching Hospital, specializing in inpatient care and emergency medical management.",
   },
   {
     year: "2024",
-    title: "Medical Officer",
-    description: "Started professional journey as a Medical Officer, providing comprehensive patient care.",
+    title: "MBBS Completion",
+    description: "Successfully completed Bachelor of Medicine and Bachelor of Surgery, laying the foundation for clinical excellence and patient-centered care.",
   },
 ];
 
 const focusAreas = [
-  "General health check-ups and screenings",
-  "Management of common illnesses",
-  "Preventive medicine and health education",
-  "Chronic disease monitoring",
-  "Patient-centered care approach",
-  "Emergency medical care",
+  {
+    title: "Patient-Centered Care",
+    description: "Prioritizing the unique needs and values of each patient to ensure compassionate and effective treatment outcomes.",
+    icon: "heart"
+  },
+  {
+    title: "Clinical Excellence",
+    description: "Committed to maintaining the highest standards of medical practice through continuous learning and evidence-based protocols.",
+    icon: "award"
+  },
+  {
+    title: "Preventive Medicine",
+    description: "Focused on identifying risk factors early and implementing strategies to prevent chronic diseases before they develop.",
+    icon: "shield"
+  }
 ];
 
 export default function About() {
@@ -36,7 +46,7 @@ export default function About() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1 }
     );
 
     const elements = sectionRef.current?.querySelectorAll(".fade-up");
@@ -49,127 +59,82 @@ export default function About() {
     <section
       id="about"
       ref={sectionRef}
-      className="py-20 md:py-28 bg-background-soft"
+      className="py-24 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <span className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out badge-capsule mb-4">
-            Physician Profile
-          </span>
-          <h2 className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 text-2xl md:text-3xl font-semibold text-foreground mb-4">
-            About Dr. Budhathoki
-          </h2>
-          <p className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 text-foreground-muted">
-            A fresh perspective in medicine with a commitment to patient care excellence.
-          </p>
-        </div>
-
-        {/* Biography */}
-        <div className="grid md:grid-cols-2 gap-12 lg:gap-16 mb-20">
-          <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-medium text-foreground">Clinical Philosophy</h3>
+        <div className="grid lg:grid-cols-2 gap-16 items-start">
+          {/* Left Column: Bio */}
+          <div className="relative">
+            <div className="fade-up opacity-0 translate-y-4 mb-6">
+              <span className="badge-capsule">Personal Journey</span>
             </div>
-            <div className="space-y-4 text-foreground-muted leading-relaxed pl-13">
+            <h2 className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 text-3xl md:text-4xl font-bold text-foreground mb-8">
+              A Dedication to <span className="text-primary">Clinical Excellence</span> & Compassion
+            </h2>
+
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 space-y-6 text-foreground-muted leading-relaxed">
               <p>
-                Dr. Girwan Kumar Budhathoki is a dedicated Medical Officer with an MBBS degree, 
-                committed to providing compassionate, patient-centered healthcare. His approach 
-                combines thorough clinical evaluation with a genuine concern for each patient&apos;s 
-                well-being.
+                As a Medical Officer at Nobel Medical College, my approach to medicine is rooted in the belief that every patient deserves not just clinical expertise, but genuine empathy and respect.
               </p>
               <p>
-                As a new medical professional, Dr. Budhathoki brings fresh knowledge and modern 
-                medical practices to his practice. He emphasizes clear communication, preventive 
-                care, and building trusting relationships with his patients.
+                My journey in healthcare began with a deep-seated desire to serve the community in Nepal. Since completing my MBBS, I have dedicated myself to providing comprehensive care that addresses both the physical and emotional aspects of health.
               </p>
             </div>
-          </div>
-          
-          <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200">
-            <div className="flex items-center gap-3 mb-5">
-              <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                  <polyline points="22 4 12 14.01 9 11.01" />
-                </svg>
-              </div>
-              <h3 className="text-lg font-medium text-foreground">Areas of Focus</h3>
-            </div>
-            <ul className="space-y-3 pl-13">
-              {focusAreas.map((item, index) => (
-                <li key={index} className="flex items-start gap-3 text-foreground-muted">
-                  <span className="flex-shrink-0 w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center mt-0.5" aria-hidden="true">
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
-                  </span>
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
 
-        {/* Timeline - Medical Style */}
-        <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300">
-          <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10" />
-                <polyline points="12 6 12 12 16 14" />
-              </svg>
-            </div>
-            <h3 className="text-lg font-medium text-foreground">Education & Career</h3>
-          </div>
-          
-          <div className="relative pl-5">
-            {/* Timeline line - Pill shaped */}
-            <div className="absolute left-8 top-0 bottom-0 w-1 rounded-full bg-gradient-to-b from-primary via-primary-light to-primary/30" aria-hidden="true" />
-            
-            <div className="space-y-6">
-              {timeline.map((item, index) => (
-                <div
-                  key={index}
-                  className="relative flex gap-6 group"
-                >
-                  {/* Year Pill */}
-                  <div className="flex-shrink-0 w-24 pt-1">
-                    <span className="inline-flex items-center px-3 py-1 text-xs font-semibold text-primary bg-primary/10 rounded-full">
-                      {item.year}
-                    </span>
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300 mt-12 grid sm:grid-cols-3 gap-6">
+              {focusAreas.map((area, index) => (
+                <div key={index} className="p-5 rounded-2xl bg-white border border-border shadow-sm hover:border-primary/20 transition-all">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary mb-4">
+                    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      {area.icon === "heart" && <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />}
+                      {area.icon === "award" && <><circle cx="12" cy="8" r="7" /><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" /></>}
+                      {area.icon === "shield" && <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />}
+                    </svg>
                   </div>
-                  
-                  {/* Timeline dot */}
-                  <div className="absolute left-[27px] top-3 w-3 h-3 rounded-full bg-primary border-2 border-background group-hover:scale-125 transition-transform" aria-hidden="true" />
-                  
-                  {/* Content Card */}
-                  <div className="flex-1 pb-6">
-                    <div className="p-5 bg-background rounded-2xl border border-border group-hover:border-primary/30 group-hover:shadow-md transition-all">
-                      <h4 className="font-medium text-foreground mb-1">{item.title}</h4>
-                      <p className="text-sm text-foreground-subtle">{item.description}</p>
-                    </div>
-                  </div>
+                  <h4 className="text-sm font-bold text-foreground mb-2">{area.title}</h4>
+                  <p className="text-xs text-foreground-subtle leading-normal">{area.description}</p>
                 </div>
               ))}
             </div>
           </div>
+
+          {/* Right Column: Timeline */}
+          <div className="lg:pl-8">
+            <div className="fade-up opacity-0 translate-y-4 mb-6">
+              <span className="badge-capsule bg-accent-light/10 text-accent">Career Timeline</span>
+            </div>
+
+            <div className="relative pl-8 border-l border-primary/20 space-y-12">
+              {timeline.map((item, index) => (
+                <div key={index} className="relative fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out">
+                  {/* Timeline Dot */}
+                  <div className="absolute -left-[41px] top-1.5 w-5 h-5 rounded-full bg-white border-4 border-primary shadow-sm" />
+
+                  <div className="flex flex-col sm:flex-row sm:items-baseline gap-2 mb-2">
+                    <span className="text-primary font-bold tracking-tight">{item.year}</span>
+                    <h3 className="text-lg font-bold text-foreground">{item.title}</h3>
+                  </div>
+                  <p className="text-sm text-foreground-muted leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-400 mt-16 p-8 rounded-[2.5rem] bg-gradient-to-br from-primary/5 to-accent/5 border border-white relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-4 opacity-10">
+                <svg className="w-16 h-16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1">
+                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                </svg>
+              </div>
+              <p className="text-foreground italic font-medium relative z-10">
+                "Medicine is not only a science; it is also an art. It does not consist of compounding pills and plasters; it deals with the very processes of life, which must be understood before they may be guided."
+              </p>
+              <p className="mt-4 text-xs font-bold text-primary tracking-widest uppercase">— Clinical Philosophy</p>
+            </div>
+          </div>
         </div>
       </div>
-
-      <style jsx>{`
-        .animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-        .pl-13 {
-          padding-left: 3.25rem;
-        }
-      `}</style>
     </section>
   );
 }

@@ -4,44 +4,54 @@ import { useEffect, useRef } from "react";
 
 const services = [
   {
-    title: "Primary Care & Annual Physicals",
-    description: "Comprehensive annual examinations including health screenings, risk assessments, and personalized wellness planning for adults of all ages.",
-    icon: "clipboard",
+    title: "Primary Care & Wellness",
+    description: "Comprehensive annual examinations including health screenings, risk assessments, and personalized wellness planning.",
+    icon: "heart"
   },
   {
-    title: "Chronic Disease Management",
-    description: "Ongoing care coordination for conditions including hypertension, diabetes, heart disease, and respiratory disorders with evidence-based treatment protocols.",
-    icon: "activity",
+    title: "Chronic Disease Control",
+    description: "Ongoing management for hypertension, diabetes, and respiratory disorders with evidence-based medical protocols.",
+    icon: "activity"
   },
   {
-    title: "Preventive Medicine",
-    description: "Vaccination programs, cancer screenings, cardiovascular risk assessments, and lifestyle counseling to prevent disease before it occurs.",
-    icon: "shield",
+    title: "Preventive Screenings",
+    description: "Early detection programs, cardiovascular risk assessments, and lifestyle counseling to maintain long-term vitality.",
+    icon: "shield"
   },
   {
-    title: "Acute Illness Care",
-    description: "Diagnosis and treatment of sudden illnesses including infections, injuries, and other urgent medical concerns with same-day appointments available.",
-    icon: "thermometer",
+    title: "Acute Care Services",
+    description: "Rapid diagnosis and professional treatment for sudden illnesses, infections, and urgent medical concerns.",
+    icon: "thermometer"
   },
   {
-    title: "Geriatric Medicine",
-    description: "Specialized care for older adults focusing on medication management, fall prevention, cognitive health, and maintaining quality of life.",
-    icon: "users",
+    title: "Geriatric Support",
+    description: "Specialized care for older adults focusing on cognitive health, mobility, and effective medication management.",
+    icon: "users"
   },
   {
-    title: "Health Consultations",
-    description: "In-depth discussions about symptoms, test results, treatment options, and referrals to specialists when specialized care is indicated.",
-    icon: "message-circle",
+    title: "Medical Consultations",
+    description: "In-depth discussions regarding symptoms, test results, and optimized treatment options for better clarity.",
+    icon: "message-circle"
   },
 ];
 
-const iconPaths: Record<string, string> = {
-  clipboard: "M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2",
-  activity: "M22 12h-4l-3 9L9 3l-3 9H2",
-  shield: "M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z",
-  thermometer: "M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z",
-  users: "M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 7a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
-  "message-circle": "M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z",
+const IconSVG = ({ type }: { type: string }) => {
+  switch (type) {
+    case "heart":
+      return <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />;
+    case "activity":
+      return <path d="M22 12h-4l-3 9L9 3l-3 9H2" />;
+    case "shield":
+      return <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />;
+    case "thermometer":
+      return <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z" />;
+    case "users":
+      return <><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></>;
+    case "message-circle":
+      return <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />;
+    default:
+      return null;
+  }
 };
 
 export default function Services() {
@@ -56,7 +66,7 @@ export default function Services() {
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1 }
     );
 
     const elements = sectionRef.current?.querySelectorAll(".fade-up");
@@ -69,83 +79,55 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="py-20 md:py-28 bg-background"
+      className="py-24 bg-white/50 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="max-w-3xl mb-16">
-          <span className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out badge-capsule mb-4">
-            Medical Services
-          </span>
-          <h2 className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 text-2xl md:text-3xl font-semibold text-foreground mb-4">
-            Specializations & Services
+        <div className="text-center max-w-3xl mx-auto mb-20">
+          <div className="fade-up opacity-0 translate-y-4 mb-4">
+            <span className="badge-capsule">Our Expertise</span>
+          </div>
+          <h2 className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-100 text-3xl md:text-5xl font-bold text-foreground mb-6">
+            Comprehensive <span className="text-primary">Medical Services</span>
           </h2>
-          <p className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 text-foreground-muted">
-            Comprehensive internal medicine services for adult patients, from routine preventive care to complex medical management.
+          <p className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-200 text-foreground-muted text-lg font-light">
+            Dedicated to improving the quality of life through professional and
+            patient-centered internal medicine care.
           </p>
         </div>
 
-        {/* Services Grid - Medical Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
             <div
               key={index}
-              className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out group card-medical"
-              style={{ transitionDelay: `${(index + 2) * 100}ms` }}
+              className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out group card-clinical"
+              style={{ transitionDelay: `${(index + 1) * 100}ms` }}
             >
-              {/* Icon - Pill Shape */}
-              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-5 group-hover:bg-primary group-hover:scale-110 transition-all duration-300" aria-hidden="true">
-                <svg
-                  className="w-5 h-5 text-primary group-hover:text-white transition-colors"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d={iconPaths[service.icon]} />
+              <div className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <IconSVG type={service.icon} />
                 </svg>
               </div>
-              
-              <h3 className="text-base font-medium text-foreground mb-2 group-hover:text-primary transition-colors">
+
+              <h3 className="text-xl font-bold text-foreground mb-4 group-hover:text-primary transition-colors">
                 {service.title}
               </h3>
-              <p className="text-sm text-foreground-subtle leading-relaxed">
+              <p className="text-sm text-foreground-muted leading-relaxed font-light mb-8">
                 {service.description}
               </p>
-              
-              {/* Learn More Link */}
-              <div className="mt-4 pt-4 border-t border-border">
-                <a 
-                  href="#contact" 
-                  className="inline-flex items-center text-sm font-medium text-primary hover:text-primary-dark transition-colors"
-                >
-                  Learn more
-                  <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </a>
-              </div>
+
+              <a
+                href="#contact"
+                className="inline-flex items-center text-sm font-bold text-primary group-hover:gap-2 transition-all"
+              >
+                Learn More
+                <svg className="w-4 h-4 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
             </div>
           ))}
         </div>
-        
-        {/* Bottom CTA */}
-        <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-500 mt-12 text-center">
-          <p className="text-foreground-subtle mb-4">Need a service not listed here?</p>
-          <a href="#contact" className="btn-pill btn-pill-outline">
-            Contact for Consultation
-          </a>
-        </div>
       </div>
-
-      <style jsx>{`
-        .animate-in {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      `}</style>
     </section>
   );
 }

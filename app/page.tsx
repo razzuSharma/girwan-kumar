@@ -6,12 +6,14 @@ import Qualifications from "./sections/Qualifications";
 import Clinic from "./sections/Clinic";
 import Contact from "./sections/Contact";
 import Footer from "./components/Footer";
+import MedicalBackground from "./components/MedicalBackground";
 
 export default function Home() {
   return (
     <>
+      <MedicalBackground />
       <Navigation />
-      <main>
+      <main className="relative z-10">
         <Hero />
         <About />
         <Services />
