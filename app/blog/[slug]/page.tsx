@@ -30,8 +30,8 @@ async function fetchPost(slug: string) {
   return { data: data as Post | null, error };
 }
 
-function getCanonical(slug: string) {
-  const host = headers().get("host");
+async function getCanonical(slug: string) {
+  const host = (await headers()).get("host");
   if (!host) return `/blog/${slug}`;
   const protocol = host.includes("localhost") ? "http" : "https";
   return `${protocol}://${host}/blog/${slug}`;
@@ -53,7 +53,7 @@ export async function generateMetadata({
     const title = post.meta_title || post.title || "Medical Article";
     const description =
       post.meta_description || post.excerpt || post.content?.slice(0, 180) || "";
-    const canonical = getCanonical(post.slug);
+    const canonical = await getCanonical(post.slug);
 
     return {
       title,

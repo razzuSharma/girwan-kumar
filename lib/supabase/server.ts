@@ -30,7 +30,13 @@ export async function createServerSupabase() {
         if (!store) return [];
         return store.getAll();
       },
-      setAll(cookiesToSet) {
+      setAll(
+        cookiesToSet: Array<{
+          name: string;
+          value: string;
+          options?: Parameters<Awaited<ReturnType<typeof cookies>>["set"]>[2];
+        }>
+      ) {
         if (!store) return;
         try {
           cookiesToSet.forEach(({ name, value, options }) => {
