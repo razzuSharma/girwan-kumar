@@ -1,11 +1,16 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { createServerSupabase } from "@/lib/supabase/server";
 
 type Post = {
   id: number;
+  slug: string;
   title: string | null;
   content: string | null;
+  excerpt: string | null;
+  featured_image: string | null;
+  is_published: boolean | null;
   created_at: string;
 };
 
@@ -14,7 +19,8 @@ async function fetchPosts() {
     const supabase = await createServerSupabase();
     const { data, error } = await supabase
       .from("posts")
-      .select("id, title, content, created_at")
+      .select("id, slug, title, content, excerpt, featured_image, is_published, created_at")
+      .or("is_published.is.true,is_published.is.null")
       .order("created_at", { ascending: false });
 
     if (error) {
@@ -74,7 +80,7 @@ async function PostsGrid() {
   return (
     <div className="grid md:grid-cols-2 gap-8">
       {posts.map((post) => {
-        const excerpt = (post.content ?? "").slice(0, 180);
+        const excerpt = post.excerpt?.trim() || (post.content ?? "").slice(0, 180);
         const formattedDate = new Date(post.created_at).toLocaleDateString("en-US", {
           month: "short",
           day: "2-digit",
@@ -86,6 +92,16 @@ async function PostsGrid() {
             key={post.id}
             className="p-8 rounded-2xl bg-background-soft border border-border shadow-sm hover:shadow-md transition-all"
           >
+            {post.featured_image && (
+              <div className="relative mb-6 h-48 w-full overflow-hidden rounded-2xl border border-border bg-background">
+                <Image
+                  src={post.featured_image}
+                  alt={post.title ?? "Featured image"}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            )}
             <p className="text-xs uppercase tracking-widest text-foreground-subtle mb-3">
               {formattedDate}
             </p>
@@ -93,10 +109,10 @@ async function PostsGrid() {
               {post.title || "Untitled"}
             </h3>
             <p className="text-sm text-foreground-muted leading-relaxed mb-6">
-              {excerpt}{post.content && post.content.length > 180 ? "..." : ""}
+              {excerpt}{excerpt.length >= 180 ? "..." : ""}
             </p>
             <Link
-              href={`/blog/${post.id}`}
+              href={`/blog/${post.slug}`}
               className="btn-pill btn-pill-primary text-sm px-5 py-2.5"
             >
               Read More
