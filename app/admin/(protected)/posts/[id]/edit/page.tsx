@@ -5,9 +5,10 @@ import PostEditor from "../../PostEditor";
 export default async function EditPostPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const postId = Number(params.id);
+  const { id } = await params;
+  const postId = Number(id);
 
   if (Number.isNaN(postId)) {
     redirect("/admin/posts");

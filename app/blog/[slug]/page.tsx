@@ -40,10 +40,11 @@ function getCanonical(slug: string) {
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const { data: post, error } = await fetchPost(params.slug);
+    const { slug } = await params;
+    const { data: post, error } = await fetchPost(slug);
 
     if (error || !post) {
       return { title: "Article Not Found" };
@@ -76,10 +77,11 @@ export async function generateMetadata({
 export default async function BlogDetailPage({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) {
   try {
-    const { data: post, error } = await fetchPost(params.slug);
+    const { slug } = await params;
+    const { data: post, error } = await fetchPost(slug);
 
     if (error) {
       console.error("Supabase post fetch error:", error);
