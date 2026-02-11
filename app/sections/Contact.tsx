@@ -75,7 +75,7 @@ export default function Contact() {
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
                     <polyline points="20 6 9 17 4 12" />
                   </svg>
-                  Request Sent Successfully! We'll contact you soon.
+                  Request Sent Successfully! We&apos;ll contact you soon.
                 </div>
               )}
 

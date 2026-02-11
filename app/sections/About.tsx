@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Image from "next/image";
 
 const timeline = [
   {
@@ -128,7 +127,7 @@ export default function About() {
                 </svg>
               </div>
               <p className="text-foreground italic font-medium relative z-10">
-                "Medicine is not only a science; it is also an art. It does not consist of compounding pills and plasters; it deals with the very processes of life, which must be understood before they may be guided."
+                &quot;Medicine is not only a science; it is also an art. It does not consist of compounding pills and plasters; it deals with the very processes of life, which must be understood before they may be guided.&quot;
               </p>
               <p className="mt-4 text-xs font-bold text-primary tracking-widest uppercase">— Clinical Philosophy</p>
             </div>

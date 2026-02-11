@@ -83,7 +83,7 @@ export default function Hero() {
               {/* Soft Background Blob */}
               <div className="absolute inset-0 bg-primary/10 blur-[80px] rounded-full -z-10 animate-pulse" />
 
-              <div className="relative aspect-[4/5] rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
+              <div className="relative aspect-4/5 rounded-[3rem] overflow-hidden shadow-2xl border-4 border-white">
                 <Image
                   src="/Girwan.png"
                   alt="Dr. Girwan Kumar Budhathoki"

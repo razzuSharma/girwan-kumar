@@ -1,7 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
-
 const icons = [
     { id: 1, type: "heart", top: "10%", left: "5%", size: 40, delay: 0 },
     { id: 2, type: "stethoscope", top: "40%", left: "85%", size: 60, delay: 2 },
@@ -53,14 +51,6 @@ const IconSVG = ({ type }: { type: string }) => {
 };
 
 export default function MedicalBackground() {
-    const [mounted, setMounted] = useState(false);
-
-    useEffect(() => {
-        setMounted(true);
-    }, []);
-
-    if (!mounted) return null;
-
     return (
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
             {/* ECG Line */}
