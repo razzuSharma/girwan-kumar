@@ -14,10 +14,27 @@
   --color-foreground: #1e293b;
   --color-foreground-muted: #64748b;
   --color-foreground-subtle: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-ring: #38bdf8;
 
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
   --radius-3xl: 2.5rem;
+}
+
+[data-theme="dark"] {
+  --color-primary: #38bdf8;
+  --color-primary-light: #7dd3fc;
+  --color-accent: #22d3ee;
+  --color-accent-light: #99f6e4;
+
+  --color-background: #0f172a;
+  --color-background-soft: #111827;
+  --color-foreground: #e2e8f0;
+  --color-foreground-muted: #94a3b8;
+  --color-foreground-subtle: #64748b;
+  --color-border: #1f2937;
+  --color-ring: #60a5fa;
 }
 
 :root {
@@ -63,7 +80,12 @@
   }
 
   .card-clinical {
-    @apply bg-white border border-slate-100 rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-primary/20 transition-all duration-500;
+    @apply bg-background-soft border border-border rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-primary/20 transition-all duration-500;
+  }
+
+  [data-theme="dark"] .card-clinical {
+    background-color: var(--color-background-soft);
+    border-color: rgba(148, 163, 184, 0.18);
   }
 
   .btn-pill {

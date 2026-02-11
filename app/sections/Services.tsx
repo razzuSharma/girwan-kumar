@@ -79,7 +79,7 @@ export default function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="py-24 bg-white/50 relative overflow-hidden"
+      className="py-24 bg-background/50 relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-20">

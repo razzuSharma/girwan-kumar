@@ -67,7 +67,7 @@ export default function Qualifications() {
               Academic excellence and certified clinical skills form the pillar of my medical practice.
             </p>
 
-            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300 mt-12 p-8 rounded-[2rem] bg-white border border-border shadow-sm">
+            <div className="fade-up opacity-0 translate-y-4 transition-all duration-700 ease-out delay-300 mt-12 p-8 rounded-[2rem] bg-background-soft border border-border shadow-sm">
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center text-accent">
                   <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -96,7 +96,7 @@ export default function Qualifications() {
               </h3>
               <div className="grid gap-6">
                 {degrees.map((item, index) => (
-                  <div key={index} className="p-8 rounded-3xl bg-white border border-border hover:border-primary/30 transition-all shadow-sm group">
+                  <div key={index} className="p-8 rounded-3xl bg-background-soft border border-border hover:border-primary/30 transition-all shadow-sm group">
                     <div className="flex flex-col sm:flex-row justify-between items-start gap-4 mb-4">
                       <div>
                         <span className="text-primary font-bold text-lg">{item.degree}</span>
@@ -127,7 +127,7 @@ export default function Qualifications() {
               </h3>
               <div className="grid sm:grid-cols-2 gap-6">
                 {certifications.map((item, index) => (
-                  <div key={index} className="p-6 rounded-3xl bg-white border border-border shadow-sm hover:shadow-md transition-all">
+                  <div key={index} className="p-6 rounded-3xl bg-background-soft border border-border shadow-sm hover:shadow-md transition-all">
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-xs font-bold text-accent px-3 py-1 bg-accent/5 rounded-full border border-accent/10">{item.status}</span>
                       <span className="text-xs text-foreground-subtle">{item.year}</span>
