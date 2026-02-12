@@ -128,7 +128,6 @@ export default function PostEditor({
           : await supabase.from("posts").update(payload).eq("id", postId);
 
       if (error) {
-        console.error("Supabase post save error:", error);
         setErrorBanner("Unable to save article. Please try again.");
         return;
       }
@@ -147,7 +146,6 @@ export default function PostEditor({
         setErrors({});
       }
     } catch (err) {
-      console.error("Unexpected post save error:", err);
       setErrorBanner("Unable to save article. Please try again.");
     } finally {
       setIsSaving(false);

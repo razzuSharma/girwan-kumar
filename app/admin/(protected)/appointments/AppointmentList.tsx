@@ -58,7 +58,6 @@ export default function AppointmentList({ initialAppointments, hasError }: Props
     try {
       const { error } = await supabase.from("appointment_requests").delete().eq("id", id);
       if (error) {
-        console.error("Supabase appointment delete error:", error);
         setErrorBanner("Unable to delete appointment. Please try again.");
         return;
       }
@@ -68,7 +67,6 @@ export default function AppointmentList({ initialAppointments, hasError }: Props
         setSelectedId(null);
       }
     } catch (err) {
-      console.error("Unexpected appointment delete error:", err);
       setErrorBanner("Unable to delete appointment. Please try again.");
     } finally {
       setIsDeleting(null);

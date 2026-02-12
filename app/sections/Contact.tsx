@@ -67,7 +67,6 @@ export default function Contact() {
       setFormState({ name: "", email: "", phone: "", date: "", reason: "", message: "" });
       setTimeout(() => setIsSuccess(false), 5000);
     } catch (err: any) {
-      console.error("Appointment insert error:", err);
       setError(err?.message ?? "Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
