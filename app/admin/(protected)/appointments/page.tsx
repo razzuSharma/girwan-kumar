@@ -25,13 +25,11 @@ export default async function AppointmentsPage() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      console.error("Supabase appointments fetch error:", error);
       hasError = true;
     } else {
       appointments = (data ?? []) as Appointment[];
     }
   } catch (err) {
-    console.error("Unexpected appointments fetch error:", err);
     hasError = true;
   }
 

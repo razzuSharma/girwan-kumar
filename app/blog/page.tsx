@@ -1,36 +1,37 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { SmartImage } from "./_components/SmartImage";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 type Post = {
   id: number;
   slug: string;
   title: string | null;
-  content: string | null;
   excerpt: string | null;
   featured_image: string | null;
-  is_published: boolean | null;
   created_at: string;
+  user_id: string | null;
+  full_name: string | null;
 };
 
 async function fetchPosts() {
   try {
     const supabase = await createServerSupabase();
     const { data, error } = await supabase
-      .from("posts")
-      .select("id, slug, title, content, excerpt, featured_image, is_published, created_at")
-      .or("is_published.is.true,is_published.is.null")
+      .from("posts_with_author")
+      .select("id, slug, title, excerpt, featured_image, created_at, user_id, full_name")
       .order("created_at", { ascending: false });
 
+    console.log("data", data);
     if (error) {
-      console.error("Supabase posts fetch error:", error);
       return { posts: [], error: true };
     }
 
-    return { posts: (data ?? []) as Post[], error: false };
+    return { posts: (data ?? []) as unknown as Post[], error: false };
   } catch (err) {
-    console.error("Unexpected posts fetch error:", err);
     return { posts: [], error: true };
   }
 }
@@ -63,8 +64,12 @@ async function PostsGrid() {
   if (error) {
     return (
       <div className="p-8 rounded-2xl bg-background-soft border border-border shadow-sm">
-        <h3 className="text-lg font-bold text-foreground mb-2">Unable to load articles at the moment.</h3>
-        <p className="text-sm text-foreground-muted">Please refresh the page and try again.</p>
+        <h3 className="text-lg font-bold text-foreground mb-2">
+          Unable to load articles at the moment.
+        </h3>
+        <p className="text-sm text-foreground-muted">
+          Please refresh the page and try again.
+        </p>
       </div>
     );
   }
@@ -80,43 +85,63 @@ async function PostsGrid() {
   return (
     <div className="grid md:grid-cols-2 gap-8">
       {posts.map((post) => {
-        const excerpt = post.excerpt?.trim() || (post.content ?? "").slice(0, 180);
-        const formattedDate = new Date(post.created_at).toLocaleDateString("en-US", {
-          month: "short",
-          day: "2-digit",
-          year: "numeric",
-        });
+        const excerpt = post.excerpt?.trim() || "";
+        const formattedDate = new Date(post.created_at).toLocaleDateString(
+          "en-US",
+          {
+            month: "short",
+            day: "2-digit",
+            year: "numeric",
+          },
+        );
 
         return (
           <article
             key={post.id}
-            className="p-8 rounded-2xl bg-background-soft border border-border shadow-sm hover:shadow-md transition-all"
+            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border/60 bg-white/70 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.35)] backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-primary/30 hover:shadow-[0_30px_60px_-35px_rgba(15,23,42,0.45)]"
           >
             {post.featured_image && (
-              <div className="relative mb-6 h-48 w-full overflow-hidden rounded-2xl border border-border bg-background">
-                <Image
+              <div className="relative h-52 w-full overflow-hidden">
+                <SmartImage
                   src={post.featured_image}
                   alt={post.title ?? "Featured image"}
-                  fill
-                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover transition-transform duration-500 will-change-transform group-hover:scale-[1.06]"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
               </div>
             )}
-            <p className="text-xs uppercase tracking-widest text-foreground-subtle mb-3">
-              {formattedDate}
-            </p>
-            <h3 className="text-xl font-bold text-foreground mb-4">
-              {post.title || "Untitled"}
-            </h3>
-            <p className="text-sm text-foreground-muted leading-relaxed mb-6">
-              {excerpt}{excerpt.length >= 180 ? "..." : ""}
-            </p>
-            <Link
-              href={`/blog/${post.slug}`}
-              className="btn-pill btn-pill-primary text-sm px-5 py-2.5"
-            >
-              Read More
-            </Link>
+            <div className="flex h-full flex-col p-6">
+              <p className="text-xs uppercase tracking-[0.35em] text-foreground-subtle">
+                {formattedDate}
+              </p>
+              {post.full_name ? (
+                <p className="mt-2 text-sm font-medium text-foreground">
+                  By {post.full_name}
+                </p>
+              ) : null}
+
+              <h3 className="mt-3 text-xl font-semibold text-foreground">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="transition-colors duration-200 hover:text-primary"
+                >
+                  {post.title || "Untitled"}
+                </Link>
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-foreground-muted">
+                {excerpt}
+                {excerpt.length >= 180 ? "..." : ""}
+              </p>
+              <div className="mt-6">
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="btn-pill btn-pill-primary text-sm px-5 py-2.5"
+                >
+                  Read More
+                </Link>
+              </div>
+            </div>
           </article>
         );
       })}
@@ -134,7 +159,8 @@ export default function BlogPage() {
             Latest Medical Articles
           </h2>
           <p className="text-foreground-muted text-lg font-light">
-            Evidence-based insights, clinical updates, and practical wellness guidance.
+            Evidence-based insights, clinical updates, and practical wellness
+            guidance.
           </p>
         </div>
 

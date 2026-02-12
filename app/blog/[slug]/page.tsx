@@ -1,8 +1,8 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { createServerSupabase } from "@/lib/supabase/server";
+import { BlogHero } from "../_components/BlogHero";
 
 type Post = {
   id: number;
@@ -69,7 +69,6 @@ export async function generateMetadata({
       },
     };
   } catch (err) {
-    console.error("Metadata fetch error:", err);
     return { title: "Article" };
   }
 }
@@ -84,7 +83,6 @@ export default async function BlogDetailPage({
     const { data: post, error } = await fetchPost(slug);
 
     if (error) {
-      console.error("Supabase post fetch error:", error);
       return (
         <section className="py-24">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -111,28 +109,28 @@ export default async function BlogDetailPage({
 
     return (
       <section className="py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="max-w-3xl mb-12">
-            <span className="badge-capsule mb-4">Insights</span>
-            <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
-              {post.title || "Untitled"}
-            </h1>
-            <p className="text-sm uppercase tracking-widest text-foreground-subtle">
-              {formattedDate}
-            </p>
-          </div>
-
-          {post.featured_image && (
-            <div className="relative mb-10 h-[320px] w-full overflow-hidden rounded-2xl border border-border bg-background">
-              <Image
-                src={post.featured_image}
-                alt={post.title ?? "Featured image"}
-                fill
-                className="object-cover"
-              />
+        {post.featured_image ? (
+          <BlogHero
+            title={post.title || "Untitled"}
+            imageUrl={post.featured_image}
+            category="Insights"
+            publishedAt={formattedDate}
+          />
+        ) : (
+          <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mb-12">
+              <span className="badge-capsule mb-4">Insights</span>
+              <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">
+                {post.title || "Untitled"}
+              </h1>
+              <p className="text-sm uppercase tracking-widest text-foreground-subtle">
+                {formattedDate}
+              </p>
             </div>
-          )}
+          </div>
+        )}
 
+        <div className="mx-auto mt-12 max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="rounded-2xl bg-background-soft border border-border shadow-sm p-8">
             {post.excerpt && (
               <p className="text-foreground-muted text-lg mb-6 leading-relaxed">
@@ -147,7 +145,6 @@ export default async function BlogDetailPage({
       </section>
     );
   } catch (err) {
-    console.error("Unexpected post fetch error:", err);
     return (
       <section className="py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">

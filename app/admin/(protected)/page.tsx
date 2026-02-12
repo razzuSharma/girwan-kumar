@@ -6,7 +6,7 @@ export default async function AdminDashboardPage() {
 
   const { data: profile } = await supabase
     .from("profile")
-    .select("avatar_url, address, updated_at")
+    .select("avatar_url, address, updated_at, full_name, specialty, clinic_name, phone")
     .eq("id", user.id)
     .maybeSingle();
 
@@ -14,6 +14,17 @@ export default async function AdminDashboardPage() {
     .from("posts")
     .select("id", { count: "exact", head: true })
     .eq("user_id", user.id);
+
+  const completionFields = [
+    profile?.full_name,
+    profile?.specialty,
+    profile?.clinic_name,
+    profile?.phone,
+    profile?.address,
+    profile?.avatar_url,
+  ];
+  const completedCount = completionFields.filter(Boolean).length;
+  const completionPercent = Math.round((completedCount / completionFields.length) * 100);
 
   return (
     <div className="space-y-6">
@@ -51,10 +62,10 @@ export default async function AdminDashboardPage() {
         </div>
         <div className="rounded-2xl border border-[var(--admin-border)] bg-[var(--admin-card)] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
           <p className="text-sm uppercase tracking-wide text-[var(--admin-muted)]">Profile Completion</p>
-          <p className="mt-3 text-4xl font-bold text-[var(--admin-text)]">
-            {profile?.address ? "85%" : "45%"}
+          <p className="mt-3 text-4xl font-bold text-[var(--admin-text)]">{completionPercent}%</p>
+          <p className="mt-1 text-sm text-[var(--admin-muted)]">
+            {completedCount}/{completionFields.length} fields completed
           </p>
-          <p className="mt-1 text-sm text-[var(--admin-muted)]">Add address + photo</p>
         </div>
         <div className="rounded-2xl border border-[var(--admin-border)] bg-[var(--admin-card)] p-5 shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-md">
           <div className="flex items-start justify-between">
@@ -84,7 +95,13 @@ export default async function AdminDashboardPage() {
           <div className="mt-6 flex flex-col gap-6 md:flex-row md:items-center">
             <div className="relative h-20 w-20 overflow-hidden rounded-full bg-[var(--admin-soft)]">
               {profile?.avatar_url ? (
-                <Image src={profile.avatar_url} alt="Avatar" fill className="object-cover" />
+                <Image
+                  src={profile.avatar_url}
+                  alt="Avatar"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-xs text-[var(--admin-muted)]">
                   No Avatar
@@ -93,7 +110,27 @@ export default async function AdminDashboardPage() {
             </div>
             <div className="flex-1 space-y-4">
               <div>
-                <p className="text-sm uppercase tracking-wide text-[var(--admin-muted)]">Address</p>
+                <p className="text-sm uppercase tracking-wide text-[var(--admin-muted)]">Name</p>
+                <p className="mt-1 text-sm text-[var(--admin-text)]">
+                  {profile?.full_name ?? user.email ?? "Add your name in profile settings."}
+                </p>
+              </div>
+              <div className="grid gap-4 text-sm text-[var(--admin-muted)] sm:grid-cols-2">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-[var(--admin-muted)]">Specialty</p>
+                  <p className="mt-1 text-sm text-[var(--admin-text)]">
+                    {profile?.specialty ?? "Add specialty"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-[var(--admin-muted)]">Clinic</p>
+                  <p className="mt-1 text-sm text-[var(--admin-text)]">
+                    {profile?.clinic_name ?? "Add clinic name"}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-[var(--admin-muted)]">Address</p>
                 <p className="mt-1 text-sm text-[var(--admin-text)]">
                   {profile?.address ? profile.address : "Add your address in profile settings."}
                 </p>
@@ -105,6 +142,12 @@ export default async function AdminDashboardPage() {
                     {profile?.updated_at
                       ? new Date(profile.updated_at).toLocaleDateString()
                       : "Not updated yet"}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-[var(--admin-muted)]">Phone</p>
+                  <p className="mt-1 text-sm text-[var(--admin-text)]">
+                    {profile?.phone ?? "Add phone"}
                   </p>
                 </div>
                 <div>

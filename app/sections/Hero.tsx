@@ -88,6 +88,7 @@ export default function Hero() {
                   src="/Girwan.png"
                   alt="Dr. Girwan Kumar Budhathoki"
                   fill
+                  sizes="(min-width: 1024px) 448px, 80vw"
                   className="object-cover"
                   priority
                 />
