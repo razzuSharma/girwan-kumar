@@ -114,12 +114,12 @@ export default function AdminProfilePage() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <p className="text-sm uppercase tracking-wide text-[var(--admin-muted)]">Profile</p>
-        <h1 className="text-2xl font-semibold text-[var(--admin-text)]">Profile Photo</h1>
-        <p className="text-sm text-[var(--admin-muted)]">Upload a new avatar for your profile.</p>
+        <p className="text-sm uppercase tracking-wide text-(--admin-muted)">Profile</p>
+        <h1 className="text-2xl font-semibold text-(--admin-text)">Profile Photo</h1>
+        <p className="text-sm text-(--admin-muted)">Upload a new avatar for your profile.</p>
       </div>
 
-      <div className="rounded-2xl border border-[var(--admin-border)] bg-[var(--admin-card)] p-6 shadow-sm">
+      <div className="rounded-2xl border border-(--admin-border) bg-[var(--admin-card)] p-6 shadow-sm">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
             <div className="relative h-20 w-20 overflow-hidden rounded-full bg-[var(--admin-soft)]">
