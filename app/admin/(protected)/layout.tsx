@@ -1,6 +1,8 @@
 import LogoutButton from "./LogoutButton";
 import Sidebar from "./Sidebar";
 
+export const dynamic = "force-dynamic";
+
 export default function AdminLayout({
   children,
 }: {
