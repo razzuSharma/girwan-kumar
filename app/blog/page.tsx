@@ -25,7 +25,6 @@ async function fetchPosts() {
       .select("id, slug, title, excerpt, featured_image, created_at, user_id, full_name")
       .order("created_at", { ascending: false });
 
-    console.log("data", data);
     if (error) {
       return { posts: [], error: true };
     }
@@ -108,7 +107,7 @@ async function PostsGrid() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                   className="object-cover transition-transform duration-500 will-change-transform group-hover:scale-[1.06]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/45 via-black/10 to-transparent" />
               </div>
             )}
             <div className="flex h-full flex-col p-6">
