@@ -105,8 +105,36 @@
   }
 
   .ecg-line {
-    @apply absolute w-full h-[2px] bg-gradient-to-r from-transparent via-primary/30 to-transparent opacity-10;
-    animation: ecg-scan 10s linear infinite;
+    @apply absolute left-0 w-full h-11 overflow-hidden;
+  }
+
+  .ecg-line__svg {
+    display: block;
+    width: 220%;
+    height: 100%;
+    animation: ecg-flow 6s linear infinite;
+    animation-delay: var(--ecg-delay, 0s);
+  }
+
+  .ecg-line__trace {
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .ecg-line__trace--base {
+    stroke: color-mix(in oklab, var(--color-primary) 60%, transparent);
+    stroke-width: 1.2;
+    opacity: 0.42;
+  }
+
+  .ecg-line__trace--trail {
+    stroke: color-mix(in oklab, var(--color-primary) 84%, white);
+    stroke-width: 2.2;
+    opacity: 0.78;
+    filter: drop-shadow(0 0 5px color-mix(in oklab, var(--color-primary) 34%, transparent));
+    animation: ecg-trace-glow 2.8s ease-in-out infinite;
+    animation-delay: var(--ecg-delay, 0s);
   }
 
   .medical-bg-icon {
@@ -116,13 +144,25 @@
 }
 
 @layer utilities {
-  @keyframes ecg-scan {
+  @keyframes ecg-flow {
     0% {
-      transform: translateX(-100%);
+      transform: translateX(-220px);
     }
 
     100% {
-      transform: translateX(100%);
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes ecg-trace-glow {
+    0% {
+      opacity: 0.62;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0.62;
     }
   }
 
@@ -148,5 +188,82 @@
 
   .fade-up.animate-in {
     @apply opacity-100 translate-y-0;
+  }
+}
+
+.heartbeat-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--color-primary) 9%, transparent), transparent 60%),
+    color-mix(in oklab, var(--color-background) 87%, #020617);
+  transition: opacity 360ms ease;
+}
+
+.heartbeat-loader--hidden {
+  opacity: 0;
+}
+
+.heartbeat-loader__content {
+  width: min(1400px, calc(100vw - 1rem));
+}
+
+.heartbeat-loader__ecg {
+  display: block;
+  width: 200%;
+  height: clamp(180px, 26vh, 260px);
+  animation: ecg-drift 3.8s linear infinite;
+}
+
+.heartbeat-loader__trace {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.heartbeat-loader__trace--base {
+  stroke-width: 2.2;
+  stroke: color-mix(in oklab, var(--color-primary) 76%, white);
+  opacity: 0.88;
+}
+
+.heartbeat-loader__trace--glow {
+  stroke-width: 8;
+  stroke: color-mix(in oklab, var(--color-primary) 56%, transparent);
+  opacity: 0.52;
+  filter: blur(1.6px);
+  animation: ecg-glow 3.8s ease-in-out infinite;
+}
+
+@keyframes ecg-drift {
+  0% {
+    transform: translateX(-220px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes ecg-glow {
+  0% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ecg-line__svg,
+  .ecg-line__trace--trail,
+  .heartbeat-loader__ecg,
+  .heartbeat-loader__trace--glow {
+    animation: none;
   }
 }
