@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { Plus } from "lucide-react";
+import { buttonVariants } from "@/components/ui/button";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { requireUser } from "@/lib/supabase/auth";
 import PostsList from "./PostsList";
 
@@ -19,17 +23,22 @@ export default async function AdminPostsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="rounded-3xl border border-border bg-background p-6 shadow-sm">
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <Card className="border-border/70 shadow-sm">
+        <CardHeader className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-foreground">Posts</h1>
-            <p className="mt-2 text-sm text-foreground-muted">Manage your published posts.</p>
+            <CardTitle className="text-2xl">Posts</CardTitle>
+            <CardDescription>Manage your published content and drafts.</CardDescription>
           </div>
-          <Link className="btn-pill btn-pill-primary w-fit" href="/admin/posts/new">
+
+          <Link
+            href="/admin/posts/new"
+            className={cn(buttonVariants({ variant: "default" }), "w-fit")}
+          >
+            <Plus className="h-4 w-4" />
             Create New
           </Link>
-        </div>
-      </div>
+        </CardHeader>
+      </Card>
 
       <PostsList initialPosts={(posts ?? []) as PostRow[]} userId={user.id} />
     </div>

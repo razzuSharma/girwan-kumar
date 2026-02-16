@@ -2,53 +2,37 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  CalendarCheck,
+  LayoutGrid,
+  PencilLine,
+  Stethoscope,
+  UserRound,
+} from "lucide-react";
 import ThemeToggle from "@/app/components/ThemeToggle";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   {
     href: "/admin",
     label: "Dashboard",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M3 13h8V3H3z" />
-        <path d="M13 21h8v-8h-8z" />
-        <path d="M13 3h8v8h-8z" />
-        <path d="M3 21h8v-8H3z" />
-      </svg>
-    ),
+    icon: LayoutGrid,
   },
   {
     href: "/admin/profile",
     label: "Profile",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="12" cy="7" r="4" />
-        <path d="M5.5 21a7.5 7.5 0 0 1 13 0" />
-      </svg>
-    ),
+    icon: UserRound,
   },
   {
     href: "/admin/posts",
     label: "Posts",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-        <path d="M4 6h16" />
-        <path d="M4 12h16" />
-        <path d="M4 18h16" />
-      </svg>
-    ),
+    icon: PencilLine,
   },
   {
     href: "/admin/appointments",
     label: "Appointments",
-    icon: (
-      <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-        <line x1="16" y1="2" x2="16" y2="6" />
-        <line x1="8" y1="2" x2="8" y2="6" />
-        <line x1="3" y1="10" x2="21" y2="10" />
-      </svg>
-    ),
+    icon: CalendarCheck,
   },
 ];
 
@@ -56,31 +40,42 @@ export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col gap-6 rounded-xl border border-[var(--admin-border)] bg-[var(--admin-card)] p-6 shadow-md">
-      <div className="flex items-start justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-wide text-[var(--admin-muted)]">Admin</p>
-          <h2 className="mt-2 text-lg font-semibold text-[var(--admin-text)]">Doctor Panel</h2>
+    <Card className="overflow-hidden border-border/70 shadow-md">
+      <CardHeader className="space-y-4 border-b bg-muted/30 pb-4">
+        <div className="flex items-start justify-between gap-3">
+          <div>
+            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Control Panel</p>
+            <CardTitle className="mt-2 flex items-center gap-2 text-lg">
+              <Stethoscope className="h-4 w-4 text-primary" />
+              Doctor Admin
+            </CardTitle>
+          </div>
+          <ThemeToggle />
         </div>
-        <ThemeToggle />
-      </div>
-      <nav className="space-y-2 text-sm">
+      </CardHeader>
+
+      <CardContent className="space-y-2 p-3">
         {navItems.map((item) => {
-          const isActive = pathname === item.href;
+          const isActive = pathname === item.href || (item.href !== "/admin" && pathname.startsWith(item.href));
+          const Icon = item.icon;
+
           return (
             <Link
               key={item.href}
               href={item.href}
-              className={`flex items-center gap-3 rounded-lg px-3 py-2 font-medium transition-all duration-200 hover:bg-[var(--admin-soft)] ${
-                isActive ? "bg-[var(--admin-soft)] text-[var(--admin-accent)]" : "text-[var(--admin-text)]"
-              }`}
+              className={cn(
+                "group flex items-center gap-3 rounded-lg border px-3 py-2 text-sm font-medium transition-all",
+                isActive
+                  ? "border-primary/30 bg-primary/10 text-primary"
+                  : "border-transparent text-muted-foreground hover:border-border hover:bg-muted/60 hover:text-foreground"
+              )}
             >
-              {item.icon}
+              <Icon className={cn("h-4 w-4", isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground")} />
               {item.label}
             </Link>
           );
         })}
-      </nav>
-    </div>
+      </CardContent>
+    </Card>
   );
 }
