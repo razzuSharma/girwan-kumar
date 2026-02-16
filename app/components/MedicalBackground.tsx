@@ -1,5 +1,36 @@
 "use client";
 
+import type { CSSProperties } from "react";
+
+const ECG_SEGMENT_WIDTH = 220;
+const ECG_SEGMENTS = 14;
+
+function createEcgPoints() {
+    const points: string[] = [];
+
+    for (let index = 0; index < ECG_SEGMENTS; index += 1) {
+        const offset = index * ECG_SEGMENT_WIDTH;
+        points.push(
+            `${offset + 0},22`,
+            `${offset + 28},22`,
+            `${offset + 46},20`,
+            `${offset + 62},22`,
+            `${offset + 90},22`,
+            `${offset + 108},16`,
+            `${offset + 122},34`,
+            `${offset + 136},7`,
+            `${offset + 150},30`,
+            `${offset + 174},22`,
+            `${offset + 220},22`
+        );
+    }
+
+    return points.join(" ");
+}
+
+const ECG_POINTS = createEcgPoints();
+const ECG_VIEWBOX_WIDTH = ECG_SEGMENT_WIDTH * ECG_SEGMENTS;
+
 const icons = [
     { id: 1, type: "heart", top: "10%", left: "5%", size: 40, delay: 0 },
     { id: 2, type: "stethoscope", top: "40%", left: "85%", size: 60, delay: 2 },
@@ -54,8 +85,18 @@ export default function MedicalBackground() {
     return (
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
             {/* ECG Line */}
-            <div className="ecg-line top-1/4 opacity-[0.05]" />
-            <div className="ecg-line top-2/3 opacity-[0.03]" style={{ animationDelay: "-4s" }} />
+            <div className="ecg-line top-1/4 opacity-[0.09]" style={{ "--ecg-delay": "0s" } as CSSProperties}>
+                <svg className="ecg-line__svg" viewBox={`0 0 ${ECG_VIEWBOX_WIDTH} 44`} preserveAspectRatio="none" aria-hidden="true">
+                    <polyline className="ecg-line__trace ecg-line__trace--base" points={ECG_POINTS} />
+                    <polyline className="ecg-line__trace ecg-line__trace--trail" points={ECG_POINTS} />
+                </svg>
+            </div>
+            <div className="ecg-line top-2/3 opacity-[0.06]" style={{ "--ecg-delay": "-3s" } as CSSProperties}>
+                <svg className="ecg-line__svg" viewBox={`0 0 ${ECG_VIEWBOX_WIDTH} 44`} preserveAspectRatio="none" aria-hidden="true">
+                    <polyline className="ecg-line__trace ecg-line__trace--base" points={ECG_POINTS} />
+                    <polyline className="ecg-line__trace ecg-line__trace--trail" points={ECG_POINTS} />
+                </svg>
+            </div>
 
             {/* Floating Icons */}
             {icons.map((icon) => (
