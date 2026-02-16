@@ -2,6 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { CalendarDays, Pencil, Trash2 } from "lucide-react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { createClient } from "@/lib/supabase/client";
 
 type Post = {
@@ -40,43 +44,44 @@ export default function PostsList({
     setPosts((prev) => prev.filter((post) => post.id !== postId));
   };
 
+  if (posts.length === 0) {
+    return (
+      <Card className="border-border/70 shadow-sm">
+        <CardContent className="p-6 text-sm text-muted-foreground">No posts yet. Create your first update.</CardContent>
+      </Card>
+    );
+  }
+
   return (
-    <div className="space-y-4">
-      {posts.length === 0 ? (
-        <p className="text-sm text-foreground-muted">No posts yet.</p>
-      ) : (
-        posts.map((post) => (
-          <div
-            key={post.id}
-            className="flex flex-col gap-3 rounded-3xl border border-border bg-background p-5 shadow-sm md:flex-row md:items-center md:justify-between"
-          >
+    <div className="space-y-3">
+      {posts.map((post) => (
+        <Card key={post.id} className="border-border/70 shadow-sm">
+          <CardContent className="flex flex-col gap-4 p-5 md:flex-row md:items-center md:justify-between">
             <div>
-              <p className="text-xs text-foreground-subtle">
+              <div className="flex items-center gap-2 text-xs text-muted-foreground">
+                <CalendarDays className="h-3.5 w-3.5" />
                 {new Date(post.created_at).toLocaleDateString()}
-              </p>
-              <h3 className="text-lg font-medium text-foreground">
-                {post.title || "Untitled"}
-              </h3>
+              </div>
+              <h3 className="mt-2 text-base font-semibold">{post.title || "Untitled"}</h3>
             </div>
-            <div className="flex gap-2">
+
+            <div className="flex flex-wrap gap-2">
               <Link
-                className="rounded-2xl border border-border px-3 py-1.5 text-sm text-foreground hover:bg-background-soft"
                 href={`/admin/posts/${post.id}/edit`}
+                className={cn(buttonVariants({ variant: "outline", size: "sm" }))}
               >
-                Edit
+                  <Pencil className="h-4 w-4" />
+                  Edit
               </Link>
-              <button
-                type="button"
-                onClick={() => handleDelete(post.id)}
-                className="rounded-2xl border border-red-200 px-3 py-1.5 text-sm text-red-600 hover:bg-red-50"
-              >
+              <Button variant="destructive" size="sm" onClick={() => handleDelete(post.id)}>
+                <Trash2 className="h-4 w-4" />
                 Delete
-              </button>
+              </Button>
             </div>
-          </div>
-        ))
-      )}
-      {error && <p className="text-sm text-red-700">{error}</p>}
+          </CardContent>
+        </Card>
+      ))}
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 }

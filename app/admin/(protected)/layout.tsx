@@ -9,15 +9,15 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-[var(--admin-bg)] text-[var(--admin-text)]">
-      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-10 py-8 lg:flex-row">
-        <aside className="w-full lg:w-72 lg:shrink-0">
-          <div className="sticky top-8 space-y-6">
+    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/30 text-foreground">
+      <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="grid gap-6 lg:grid-cols-[280px_minmax(0,1fr)]">
+          <aside className="space-y-4 lg:sticky lg:top-6 lg:h-fit">
             <Sidebar />
             <LogoutButton />
-          </div>
-        </aside>
-        <main className="flex-1">{children}</main>
+          </aside>
+          <main className="space-y-6">{children}</main>
+        </div>
       </div>
     </div>
   );
